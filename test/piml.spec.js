@@ -49,6 +49,14 @@ describe("PIML", () => {
         expect(PIML.parse("\\_\\_")).to.equal("&lowbar;&lowbar;");
     });
 
+    it("should escape '\\#'", () => {
+        expect(PIML.parse("\\#")).to.equal("&num;");
+    });
+
+    it("should escape multiple '\\#'", () => {
+        expect(PIML.parse("\\#\\#")).to.equal("&num;&num;");
+    });
+
     it("should apply boldface at start of string", () => {
         expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
     });
@@ -95,6 +103,30 @@ describe("PIML", () => {
 
     it("should ignore escaped '_'s", () => {
         expect(PIML.parse("\\_FOO_BAR_")).to.equal("&lowbar;FOO<u>BAR</u>");
+    });
+
+    it("should emphasize at start of string", () => {
+        expect(PIML.parse("#FOO#")).to.equal("<i>FOO</i>");
+    });
+
+    it("should emphasize within a string", () => {
+        expect(PIML.parse("FOO#BAR#BAZ")).to.equal("FOO<i>BAR</i>BAZ");
+    });
+
+    it("should emphasize at end of string", () => {
+        expect(PIML.parse("FOO#BAR#")).to.equal("FOO<i>BAR</i>");
+    });
+
+    it("should emphasize multiple times", () => {
+        expect(PIML.parse("#FOO#BAR#BAZ#")).to.equal("<i>FOO</i>BAR<i>BAZ</i>");
+    });
+
+    it("should ignore additional '#'s", () => {
+        expect(PIML.parse("#FOO#BAR#")).to.equal("<i>FOO</i>BAR#");
+    });
+
+    it("should ignore escaped '#'s", () => {
+        expect(PIML.parse("\\#FOO#BAR#")).to.equal("&num;FOO<i>BAR</i>");
     });
 
     it("should correctly parse multiple markup sequences", () => {

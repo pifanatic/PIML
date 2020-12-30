@@ -3,11 +3,13 @@ function parse(str) {
                  .replace(/>/g, "&gt;")
                  .replace(/</g, "&lt;")
                  .replace(/\\\*/g, "&ast;")
-                 .replace(/\\_/g, "&lowbar;");
+                 .replace(/\\_/g, "&lowbar;")
+                 .replace(/\\#/g, "&num;");
 
     let markupCharsMap = {
         "*": "b",
-        "_": "u"
+        "_": "u",
+        "#": "i"
     };
 
     for (let markupChar in markupCharsMap) {
