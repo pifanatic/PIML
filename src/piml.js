@@ -5,11 +5,22 @@ function parse(str) {
                  .replace(/\\\*/g, "&ast;")
                  .replace(/\\_/g, "&lowbar;");
 
-    for (let match of res.matchAll(/\*(.*?)\*/g)) {
-        let wholeMatch = match[0],
-            capture = match[1];
+    let markupCharsMap = {
+        "*": "b"
+    };
 
-        res = res.replace(`*${capture}*`, `<b>${capture}</b>`);
+    for (let markupChar in markupCharsMap) {
+        let regex = new RegExp(`\\${markupChar}(.*?)\\${markupChar}`, "g");
+
+        for (let match of res.matchAll(regex)) {
+            let wholeMatch = match[0],
+                capture = match[1];
+
+            res = res.replace(
+                `${markupChar}${capture}${markupChar}`,
+                `<${markupCharsMap[markupChar]}>${capture}</${markupCharsMap[markupChar]}>`
+            );
+        }
     }
 
     return res;
