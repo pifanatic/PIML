@@ -32,4 +32,12 @@ describe("PIML", () => {
     it("should leave the reminder of the string intact", () => {
         expect(PIML.parse("FOO<BAR>BAZ&QRR")).to.equal("FOO&lt;BAR&gt;BAZ&amp;QRR");
     });
+
+    it("should escape '\\*'", () => {
+        expect(PIML.parse("\\*")).to.equal("&ast;");
+    });
+
+    it("should escape multiple '\\*'", () => {
+        expect(PIML.parse("\\*\\*")).to.equal("&ast;&ast;");
+    });
 });
