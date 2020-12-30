@@ -6,7 +6,8 @@ function parse(str) {
                  .replace(/\\_/g, "&lowbar;");
 
     let markupCharsMap = {
-        "*": "b"
+        "*": "b",
+        "_": "u"
     };
 
     for (let markupChar in markupCharsMap) {

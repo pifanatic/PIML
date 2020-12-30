@@ -72,4 +72,28 @@ describe("PIML", () => {
     it("should ignore escaped '*'s", () => {
         expect(PIML.parse("\\*FOO*BAR*")).to.equal("&ast;FOO<b>BAR</b>");
     });
+
+    it("should underline at start of string", () => {
+        expect(PIML.parse("_FOO_")).to.equal("<u>FOO</u>");
+    });
+
+    it("should underline within a string", () => {
+        expect(PIML.parse("FOO_BAR_BAZ")).to.equal("FOO<u>BAR</u>BAZ");
+    });
+
+    it("should underline at end of string", () => {
+        expect(PIML.parse("FOO_BAR_")).to.equal("FOO<u>BAR</u>");
+    });
+
+    it("should underline multiple times", () => {
+        expect(PIML.parse("_FOO_BAR_BAZ_")).to.equal("<u>FOO</u>BAR<u>BAZ</u>");
+    });
+
+    it("should ignore additional '_'s", () => {
+        expect(PIML.parse("_FOO_BAR_")).to.equal("<u>FOO</u>BAR_");
+    });
+
+    it("should ignore escaped '_'s", () => {
+        expect(PIML.parse("\\_FOO_BAR_")).to.equal("&lowbar;FOO<u>BAR</u>");
+    });
 });
