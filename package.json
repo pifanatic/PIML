@@ -10,7 +10,8 @@
   "mocha": {
       "diff": false,
       "experimental-modules": true,
-      "require": "chai/register-expect"
+      "require": "chai/register-expect",
+      "reporter": "progress"
   },
   "author": "Kai Mörker",
   "license": "ISC",
