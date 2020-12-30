@@ -1,0 +1,21 @@
+{
+  "name": "piml",
+  "version": "1.0.0",
+  "description": "The PI Markup Language.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "mocha": {
+      "diff": false,
+      "experimental-modules": true,
+      "require": "chai/register-expect"
+  },
+  "author": "Kai Mörker",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1"
+  }
+}
