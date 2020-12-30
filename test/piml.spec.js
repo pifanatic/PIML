@@ -40,4 +40,28 @@ describe("PIML", () => {
     it("should escape multiple '\\*'", () => {
         expect(PIML.parse("\\*\\*")).to.equal("&ast;&ast;");
     });
+
+    it("should apply boldface at start of string", () => {
+        expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
+    });
+
+    it("should apply boldface within a string", () => {
+        expect(PIML.parse("FOO*BAR*BAZ")).to.equal("FOO<b>BAR</b>BAZ");
+    });
+
+    it("should apply boldface at end of string", () => {
+        expect(PIML.parse("FOO*BAR*")).to.equal("FOO<b>BAR</b>");
+    });
+
+    it("should apply boldface multiple times", () => {
+        expect(PIML.parse("*FOO*BAR*BAZ*")).to.equal("<b>FOO</b>BAR<b>BAZ</b>");
+    });
+
+    it("should ignore additional '*'s", () => {
+        expect(PIML.parse("*FOO*BAR*")).to.equal("<b>FOO</b>BAR*");
+    });
+
+    it("should ignore escaped '*'s", () => {
+        expect(PIML.parse("\\*FOO*BAR*")).to.equal("&ast;FOO<b>BAR</b>");
+    });
 });
