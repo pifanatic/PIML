@@ -1,5 +1,7 @@
 function parse(str) {
-    return str;
+    return str.replace(/&/g, "&amp;")
+              .replace(/>/g, "&gt;")
+              .replace(/</g, "&lt;");
 }
 
 export default {
