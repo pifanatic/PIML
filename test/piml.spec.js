@@ -41,6 +41,14 @@ describe("PIML", () => {
         expect(PIML.parse("\\*\\*")).to.equal("&ast;&ast;");
     });
 
+    it("should escape '\\_'", () => {
+        expect(PIML.parse("\\_")).to.equal("&lowbar;");
+    });
+
+    it("should escape multiple '\\_'", () => {
+        expect(PIML.parse("\\_\\_")).to.equal("&lowbar;&lowbar;");
+    });
+
     it("should apply boldface at start of string", () => {
         expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
     });

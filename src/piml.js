@@ -2,7 +2,8 @@ function parse(str) {
     let res = str.replace(/&/g, "&amp;")
                  .replace(/>/g, "&gt;")
                  .replace(/</g, "&lt;")
-                 .replace(/\\\*/g, "&ast;");
+                 .replace(/\\\*/g, "&ast;")
+                 .replace(/\\_/g, "&lowbar;");
 
     for (let match of res.matchAll(/\*(.*?)\*/g)) {
         let wholeMatch = match[0],
