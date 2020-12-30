@@ -96,4 +96,16 @@ describe("PIML", () => {
     it("should ignore escaped '_'s", () => {
         expect(PIML.parse("\\_FOO_BAR_")).to.equal("&lowbar;FOO<u>BAR</u>");
     });
+
+    it("should correctly parse multiple markup sequences", () => {
+        expect(PIML.parse("FOO_BAR_*BAZ*QRR")).to.equal("FOO<u>BAR</u><b>BAZ</b>QRR");
+    });
+
+    it("should correctly parse multiple markup sequences while ignoring escaped markups", () => {
+        expect(PIML.parse("FOO_\\_BAR_*B\\*AZ*QR_R_")).to.equal("FOO<u>&lowbar;BAR</u><b>B&ast;AZ</b>QR<u>R</u>");
+    });
+
+    it("should correctly handle intersected markup sequences", () => {
+        expect(PIML.parse("*FOO_BAR*BAZ_QRR")).to.equal("<b>FOO<u>BAR</b>BAZ</u>QRR");
+    });
 });
