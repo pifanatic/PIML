@@ -7,7 +7,8 @@ function escapeHTMLEntities(str) {
 function escapePIMLEntities(str) {
     return str.replace(/\\\*/g, "&ast;")
               .replace(/\\_/g, "&lowbar;")
-              .replace(/\\\//g, "&sol;");
+              .replace(/\\\//g, "&sol;")
+              .replace(/\\`/g, "&grave;");
 }
 
 /**
@@ -34,7 +35,8 @@ function parse(str) {
     let markupCharsMap = {
         "/": "i",
         "_": "u",
-        "*": "b"
+        "*": "b",
+        "`": "tt"
     };
 
     for (let markupChar in markupCharsMap) {

@@ -57,6 +57,14 @@ describe("PIML", () => {
         expect(PIML.parse("\\/\\/")).to.equal("&sol;&sol;");
     });
 
+    it("should escape '\\`'", () => {
+        expect(PIML.parse("\\`")).to.equal("&grave;");
+    });
+
+    it("should escape multiple '\\`'", () => {
+        expect(PIML.parse("\\`\\`")).to.equal("&grave;&grave;");
+    });
+
     it("should replace newline with <br/> tag", () => {
         expect(PIML.parse("FOO\nBAR")).to.equal("FOO<br/>BAR");
     });
@@ -135,6 +143,30 @@ describe("PIML", () => {
 
     it("should ignore escaped '/'s", () => {
         expect(PIML.parse("\\/FOO/BAR/")).to.equal("&sol;FOO<i>BAR</i>");
+    });
+
+    it("should do monospace at start of string", () => {
+        expect(PIML.parse("`FOO`")).to.equal("<tt>FOO</tt>");
+    });
+
+    it("should do monospace within a string", () => {
+        expect(PIML.parse("FOO`BAR`BAZ")).to.equal("FOO<tt>BAR</tt>BAZ");
+    });
+
+    it("should do monospace at end of string", () => {
+        expect(PIML.parse("FOO`BAR`")).to.equal("FOO<tt>BAR</tt>");
+    });
+
+    it("should do monospace multiple times", () => {
+        expect(PIML.parse("`FOO`BAR`BAZ`")).to.equal("<tt>FOO</tt>BAR<tt>BAZ</tt>");
+    });
+
+    it("should ignore additional '`'s", () => {
+        expect(PIML.parse("`FOO`BAR`")).to.equal("<tt>FOO</tt>BAR`");
+    });
+
+    it("should ignore escaped '`'s", () => {
+        expect(PIML.parse("\\`FOO`BAR`")).to.equal("&grave;FOO<tt>BAR</tt>");
     });
 
     it("should correctly parse multiple markup sequences", () => {
