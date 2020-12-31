@@ -1,10 +1,17 @@
+function escapeHTMLEntities(str) {
+    return str.replace(/&/g, "&amp;")
+              .replace(/>/g, "&gt;")
+              .replace(/</g, "&lt;");
+}
+
 function parse(str) {
-    let res = str.replace(/&/g, "&amp;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/</g, "&lt;")
-                 .replace(/\\\*/g, "&ast;")
-                 .replace(/\\_/g, "&lowbar;")
-                 .replace(/\\#/g, "&num;");
+    let res;
+
+    res = escapeHTMLEntities(str);
+
+    res = res.replace(/\\\*/g, "&ast;")
+             .replace(/\\_/g, "&lowbar;")
+             .replace(/\\#/g, "&num;");
 
     let markupCharsMap = {
         "*": "b",
