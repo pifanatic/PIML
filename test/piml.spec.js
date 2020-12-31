@@ -49,12 +49,12 @@ describe("PIML", () => {
         expect(PIML.parse("\\_\\_")).to.equal("&lowbar;&lowbar;");
     });
 
-    it("should escape '\\#'", () => {
-        expect(PIML.parse("\\#")).to.equal("&num;");
+    it("should escape '\\/'", () => {
+        expect(PIML.parse("\\/")).to.equal("&sol;");
     });
 
-    it("should escape multiple '\\#'", () => {
-        expect(PIML.parse("\\#\\#")).to.equal("&num;&num;");
+    it("should escape multiple '\\/'", () => {
+        expect(PIML.parse("\\/\\/")).to.equal("&sol;&sol;");
     });
 
     it("should apply boldface at start of string", () => {
@@ -106,27 +106,27 @@ describe("PIML", () => {
     });
 
     it("should emphasize at start of string", () => {
-        expect(PIML.parse("#FOO#")).to.equal("<i>FOO</i>");
+        expect(PIML.parse("/FOO/")).to.equal("<i>FOO</i>");
     });
 
     it("should emphasize within a string", () => {
-        expect(PIML.parse("FOO#BAR#BAZ")).to.equal("FOO<i>BAR</i>BAZ");
+        expect(PIML.parse("FOO/BAR/BAZ")).to.equal("FOO<i>BAR</i>BAZ");
     });
 
     it("should emphasize at end of string", () => {
-        expect(PIML.parse("FOO#BAR#")).to.equal("FOO<i>BAR</i>");
+        expect(PIML.parse("FOO/BAR/")).to.equal("FOO<i>BAR</i>");
     });
 
     it("should emphasize multiple times", () => {
-        expect(PIML.parse("#FOO#BAR#BAZ#")).to.equal("<i>FOO</i>BAR<i>BAZ</i>");
+        expect(PIML.parse("/FOO/BAR/BAZ/")).to.equal("<i>FOO</i>BAR<i>BAZ</i>");
     });
 
-    it("should ignore additional '#'s", () => {
-        expect(PIML.parse("#FOO#BAR#")).to.equal("<i>FOO</i>BAR#");
+    it("should ignore additional '/'s", () => {
+        expect(PIML.parse("/FOO/BAR/")).to.equal("<i>FOO</i>BAR/");
     });
 
-    it("should ignore escaped '#'s", () => {
-        expect(PIML.parse("\\#FOO#BAR#")).to.equal("&num;FOO<i>BAR</i>");
+    it("should ignore escaped '/'s", () => {
+        expect(PIML.parse("\\/FOO/BAR/")).to.equal("&sol;FOO<i>BAR</i>");
     });
 
     it("should correctly parse multiple markup sequences", () => {

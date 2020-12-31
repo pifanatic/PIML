@@ -11,12 +11,12 @@ function parse(str) {
 
     res = res.replace(/\\\*/g, "&ast;")
              .replace(/\\_/g, "&lowbar;")
-             .replace(/\\#/g, "&num;");
+             .replace(/\\\//g, "&sol;");
 
     let markupCharsMap = {
-        "*": "b",
+        "/": "i",
         "_": "u",
-        "#": "i"
+        "*": "b"
     };
 
     for (let markupChar in markupCharsMap) {
