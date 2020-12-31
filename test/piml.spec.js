@@ -57,6 +57,14 @@ describe("PIML", () => {
         expect(PIML.parse("\\/\\/")).to.equal("&sol;&sol;");
     });
 
+    it("should replace newline with <br/> tag", () => {
+        expect(PIML.parse("FOO\nBAR")).to.equal("FOO<br/>BAR");
+    });
+
+    it("should replace all newlines with <br/> tags", () => {
+        expect(PIML.parse("FOO\nBAR\nBAZ\nQRR")).to.equal("FOO<br/>BAR<br/>BAZ<br/>QRR");
+    });
+
     it("should apply boldface at start of string", () => {
         expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
     });
