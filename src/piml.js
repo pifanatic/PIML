@@ -30,7 +30,7 @@ function parse(str) {
                 capture = match[1];
 
             res = res.replace(
-                `${markupChar}${capture}${markupChar}`,
+                `${wholeMatch}`,
                 `<${markupCharsMap[markupChar]}>${capture}</${markupCharsMap[markupChar]}>`
             );
         }
