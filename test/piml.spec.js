@@ -180,4 +180,8 @@ describe("PIML", () => {
     it("should correctly handle intersected markup sequences", () => {
         expect(PIML.parse("*FOO_BAR*BAZ_QRR")).to.equal("<b>FOO<u>BAR</b>BAZ</u>QRR");
     });
+
+    it("should apply markup across multiple lines", () => {
+        expect(PIML.parse("*FOO\nBAR\nBAZ*")).to.equal("<b>FOO<br/>BAR<br/>BAZ</b>")
+    });
 });

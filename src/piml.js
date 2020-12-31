@@ -40,7 +40,7 @@ function parse(str) {
     };
 
     for (let markupChar in markupCharsMap) {
-        let regex = new RegExp(`\\${markupChar}(.*?)\\${markupChar}`, "g");
+        let regex = new RegExp(`\\${markupChar}(.*?)\\${markupChar}`, "gs");
 
         for (let match of res.matchAll(regex)) {
             let wholeMatch = match[0],
