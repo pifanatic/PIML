@@ -4,14 +4,17 @@ function escapeHTMLEntities(str) {
               .replace(/</g, "&lt;");
 }
 
+function escapePIMLEntities(str) {
+    return str.replace(/\\\*/g, "&ast;")
+              .replace(/\\_/g, "&lowbar;")
+              .replace(/\\\//g, "&sol;");
+}
+
 function parse(str) {
     let res;
 
     res = escapeHTMLEntities(str);
-
-    res = res.replace(/\\\*/g, "&ast;")
-             .replace(/\\_/g, "&lowbar;")
-             .replace(/\\\//g, "&sol;");
+    res = escapePIMLEntities(res);
 
     let markupCharsMap = {
         "/": "i",
