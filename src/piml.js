@@ -29,6 +29,36 @@ function replaceNewlines(str) {
     return str.replace(/\n/g, "<br/>");
 }
 
+
+/**
+ * @function parseColor
+ *
+ * @description Parse and replace color markup sequences.
+ *
+ * A correctly formatted color markup looks like "[Lorem Ipsum...|color=red]".
+ * The color parameter accepts CSS-like values (e.g. 'red' or 'blue') or HTML
+ * style color names (e.g. #000080).
+ *
+ * @param {string} str
+ *
+ * @returns {string} a string which has all color markup sequences replaced with
+ * a <span style="color"=...> element.
+ */
+function parseColor(str) {
+    let regex = /\[(.*?)\|color=([A-Za-z]+|#[A-Fa-f0-9]{3,6})\]/g;
+
+    for (let match of str.matchAll(regex)) {
+        let wholeMatch = match[0],
+            capture = match[1],
+            color = match[2];
+
+        str = str.replace(wholeMatch, `<span style="color: ${color};">${capture}</span>`);
+    }
+
+    return str;
+}
+
+
 function parse(str) {
     let res;
 
@@ -56,6 +86,7 @@ function parse(str) {
         }
     }
 
+    res = parseColor(res);
     res = replaceNewlines(res);
 
     return res;

@@ -208,4 +208,38 @@ describe("PIML", () => {
     it("should apply markup across multiple lines", () => {
         expect(PIML.parse("*FOO\nBAR\nBAZ*")).to.equal("<b>FOO<br/>BAR<br/>BAZ</b>")
     });
+
+    it("should correctly apply a single color markup sequence", () => {
+        expect(PIML.parse("[FOOBAR|color=red]")).to.equal("<span style=\"color: red;\">FOOBAR</span>");
+    });
+
+    it("should correctly apply multiple color markup sequences", () => {
+        expect(PIML.parse("[FOOBAR|color=red] XXX [BAZQRR|color=blue]")).to.equal(
+            "<span style=\"color: red;\">FOOBAR</span> XXX " +
+            "<span style=\"color: blue;\">BAZQRR</span>");
+    });
+
+    it("should ignore color with invalid special characters", () => {
+        expect(PIML.parse("[FOOBAR|color=###]")).to.equal("[FOOBAR|color=###]");
+    });
+
+    it("should ignore empty color", () => {
+        expect(PIML.parse("[FOOBAR|color=]")).to.equal("[FOOBAR|color=]");
+    });
+
+    it("should ignore malformed html color (too short)", () => {
+        expect(PIML.parse("[FOOBAR|color=#12]")).to.equal("[FOOBAR|color=#12]");
+    });
+
+    it("should ignore malformed html color (too long)", () => {
+        expect(PIML.parse("[FOOBAR|color=#1234567]")).to.equal("[FOOBAR|color=#1234567]");
+    });
+
+    it("should ignore malformed html color (invalid hex)", () => {
+        expect(PIML.parse("[FOOBAR|color=#12GG12]")).to.equal("[FOOBAR|color=#12GG12]");
+    });
+
+    it("should accept valid html colors", () => {
+        expect(PIML.parse("[FOOBAR|color=#123456]")).to.equal("<span style=\"color: #123456;\">FOOBAR</span>");
+    });
 });
