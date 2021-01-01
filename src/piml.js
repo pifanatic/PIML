@@ -8,7 +8,10 @@ function escapePIMLEntities(str) {
     return str.replace(/\\\*/g, "&ast;")
               .replace(/\\_/g, "&lowbar;")
               .replace(/\\\//g, "&sol;")
-              .replace(/\\`/g, "&grave;");
+              .replace(/\\`/g, "&grave;")
+              .replace(/\\\[/g, "&lsqb;")
+              .replace(/\\\]/g, "&rsqb;")
+              .replace(/\\\|/g, "&verbar;");
 }
 
 /**

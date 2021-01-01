@@ -65,6 +65,30 @@ describe("PIML", () => {
         expect(PIML.parse("\\`\\`")).to.equal("&grave;&grave;");
     });
 
+    it("should escape '\\['", () => {
+        expect(PIML.parse("\\[")).to.equal("&lsqb;");
+    });
+
+    it("should escape multiple '\\['", () => {
+        expect(PIML.parse("\\[\\[")).to.equal("&lsqb;&lsqb;");
+    });
+
+    it("should escape '\\]'", () => {
+        expect(PIML.parse("\\]")).to.equal("&rsqb;");
+    });
+
+    it("should escape multiple '\\]'", () => {
+        expect(PIML.parse("\\]\\]")).to.equal("&rsqb;&rsqb;");
+    });
+
+    it("should escape '\\|'", () => {
+        expect(PIML.parse("\\|")).to.equal("&verbar;");
+    });
+
+    it("should escape multiple '\\|'", () => {
+        expect(PIML.parse("\\|\\|")).to.equal("&verbar;&verbar;");
+    });
+
     it("should replace newline with <br/> tag", () => {
         expect(PIML.parse("FOO\nBAR")).to.equal("FOO<br/>BAR");
     });
