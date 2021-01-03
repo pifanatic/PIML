@@ -8,10 +8,10 @@
     "test": "mocha"
   },
   "mocha": {
-      "diff": false,
-      "experimental-modules": true,
-      "require": "chai/register-expect",
-      "reporter": "progress"
+    "diff": false,
+    "experimental-modules": true,
+    "require": "chai/register-expect",
+    "reporter": "progress"
   },
   "author": "Kai Mörker",
   "license": "ISC",
