@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>PIML Tests</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+
+        <script class="mocha-init" type="module">
+            mocha.setup("bdd");
+            mocha.checkLeaks();
+            window.expect = chai.expect;
+        </script>
+
+        <script src="./piml.spec.js" type="module" ></script>
+
+        <script class="mocha-exec" type="module">
+            mocha.run();
+        </script>
+    </body>
+</html>
