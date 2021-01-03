@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "node --experimental-modules build.js"
   },
   "mocha": {
     "diff": false,
@@ -17,6 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "uglify-es": "^3.3.9"
   }
 }
