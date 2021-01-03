@@ -45,7 +45,10 @@ function replaceNewlines(str) {
  * a <span style="color"=...> element.
  */
 function parseColor(str) {
-    let regex = /\[(.*?)\|color=([A-Za-z]+|#[A-Fa-f0-9]{3,6})\]/g;
+    let validColors = "aqua|black|blue|fuchsia|gray|green|lime|maroon|navy" +
+                      "|olive|purple|red|silver|teal|white|yellow";
+
+    let regex = new RegExp(`\\[(.*?)\\|color=(${validColors}|#[A-Fa-f0-9]{6})\\]`, "g");
 
     for (let match of str.matchAll(regex)) {
         let wholeMatch = match[0],

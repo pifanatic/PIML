@@ -210,6 +210,12 @@ describe("PIML", () => {
     });
 
     describe("color markup", () => {
+        let validColors = ["aqua", "black", "blue", "fuchsia", "gray", "green",
+                           "lime", "maroon", "navy", "olive", "purple", "red",
+                           "silver", "teal", "white", "yellow"],
+            invalidColors = ["not-a-color", "orange", "brown", "lightcoral",
+                             "###", "#1236", "#ab2323ff"];
+
         it("should correctly apply a single color markup sequence", () => {
             expect(PIML.parse("[FOOBAR|color=red]")).to.equal("<span style=\"color: red;\">FOOBAR</span>");
         });
@@ -218,10 +224,6 @@ describe("PIML", () => {
             expect(PIML.parse("[FOOBAR|color=red] XXX [BAZQRR|color=blue]")).to.equal(
                 "<span style=\"color: red;\">FOOBAR</span> XXX " +
                 "<span style=\"color: blue;\">BAZQRR</span>");
-        });
-
-        it("should ignore color with invalid special characters", () => {
-            expect(PIML.parse("[FOOBAR|color=###]")).to.equal("[FOOBAR|color=###]");
         });
 
         it("should ignore empty color", () => {
@@ -242,6 +244,19 @@ describe("PIML", () => {
 
         it("should accept valid html colors", () => {
             expect(PIML.parse("[FOOBAR|color=#123456]")).to.equal("<span style=\"color: #123456;\">FOOBAR</span>");
+        });
+
+        validColors.forEach(color => {
+            it(`should accept ${color}`, () => {
+                expect(PIML.parse(`[FOO|color=${color}]`))
+                .to.equal(`<span style="color: ${color};">FOO</span>`);
+            });
+        });
+
+        invalidColors.forEach(color => {
+            it(`should not accept ${color}`, () => {
+                expect(PIML.parse(`[FOO|color=${color}]`)).to.equal(`[FOO|color=${color}]`);
+            });
         });
     });
 });
