@@ -185,6 +185,26 @@ describe("PIML", () => {
         expect(PIML.parse("\\`FOO`BAR`")).to.equal("&grave;FOO<tt>BAR</tt>");
     });
 
+    it("should insert pre at start of string", () => {
+        expect(PIML.parse("```FOO```")).to.equal("<pre>FOO</pre>");
+    });
+
+    it("should insert pre within a string", () => {
+        expect(PIML.parse("FOO```BAR```BAZ")).to.equal("FOO<pre>BAR</pre>BAZ");
+    });
+
+    it("should insert pre at end of string", () => {
+        expect(PIML.parse("FOO```BAR```")).to.equal("FOO<pre>BAR</pre>");
+    });
+
+    it("should insert pre multiple times", () => {
+        expect(PIML.parse("```FOO```BAR```BAZ```")).to.equal("<pre>FOO</pre>BAR<pre>BAZ</pre>");
+    });
+
+    it("should replace a additional '```' with <tt></tt>`", () => {
+        expect(PIML.parse("```FOO```BAR```")).to.equal("<pre>FOO</pre>BAR<tt></tt>`");
+    });
+
     it("should correctly parse multiple markup sequences", () => {
         expect(PIML.parse("FOO_BAR_*BAZ*QRR")).to.equal("FOO<u>BAR</u><b>BAZ</b>QRR");
     });

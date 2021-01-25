@@ -89,6 +89,7 @@ function parse(str) {
     res = replacePairOfStringWithHTML(res, "/", "i");
     res = replacePairOfStringWithHTML(res, "_", "u");
     res = replacePairOfStringWithHTML(res, "*", "b");
+    res = replacePairOfStringWithHTML(res, "```", "pre");
     res = replacePairOfStringWithHTML(res, "`", "tt");
 
     res = parseColor(res);
