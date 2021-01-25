@@ -102,16 +102,10 @@ function parse(str) {
     res = escapeHTMLEntities(str);
     res = escapePIMLEntities(res);
 
-    let markupCharsMap = {
-        "/": "i",
-        "_": "u",
-        "*": "b",
-        "`": "tt"
-    };
-
-    for (let markupChar in markupCharsMap) {
-        res = replacePairOfStringWithHTML(res, markupChar, markupCharsMap[markupChar]);
-    }
+    res = replacePairOfStringWithHTML(res, "/", "i");
+    res = replacePairOfStringWithHTML(res, "_", "u");
+    res = replacePairOfStringWithHTML(res, "*", "b");
+    res = replacePairOfStringWithHTML(res, "`", "tt");
 
     res = parseColor(res);
     res = replaceNewlines(res);
