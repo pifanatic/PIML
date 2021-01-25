@@ -61,6 +61,40 @@ function parseColor(str) {
     return str;
 }
 
+/**
+ * @function replacePairOfStringWithHTML
+ *
+ * @description Replace each pair of a given string with a given HTML tag while
+ * maintaining the enclosed text sequence.
+ *
+ * E.g. "*foobar*" => "<b>foobar</b>"
+ *
+ * Will leave the last occurrence of the given string untouched if the total
+ * number of occurrences of this string is a odd number.
+ *
+ * @param {string} str The string in which to replace the markdown
+ * @param {string} replacedString A single part of the pair of strings that will
+ * be replaced
+ * @param {string} tagName The name of the HTML tag that replaces the markdown
+ *
+ * @returns {string} A string where each pair of a given string is replaced by
+ * the given HTML tag
+ */
+function replacePairOfStringWithHTML(str, replacedString, tagName) {
+    let regex = new RegExp(`\\${replacedString}(.*?)\\${replacedString}`, "gs");
+
+    for (let match of str.matchAll(regex)) {
+        let wholeMatch = match[0],
+            capture = match[1];
+
+        str = str.replace(
+            `${wholeMatch}`,
+            `<${tagName}>${capture}</${tagName}>`
+        );
+    }
+
+    return str;
+}
 
 function parse(str) {
     let res;
@@ -76,17 +110,7 @@ function parse(str) {
     };
 
     for (let markupChar in markupCharsMap) {
-        let regex = new RegExp(`\\${markupChar}(.*?)\\${markupChar}`, "gs");
-
-        for (let match of res.matchAll(regex)) {
-            let wholeMatch = match[0],
-                capture = match[1];
-
-            res = res.replace(
-                `${wholeMatch}`,
-                `<${markupCharsMap[markupChar]}>${capture}</${markupCharsMap[markupChar]}>`
-            );
-        }
+        res = replacePairOfStringWithHTML(res, markupChar, markupCharsMap[markupChar]);
     }
 
     res = parseColor(res);
