@@ -15,22 +15,6 @@ function escapePIMLEntities(str) {
 }
 
 /**
- * @function replaceNewlines
- *
- * @description Replace all newlines in a string with a <br/> element. This
- * ensures that multiline strings (e.g. from a textarea) all displayed correctly
- * in HTML
- *
- * @param {string} str
- *
- * @returns {string} a string with <br/> instead of newlines
- */
-function replaceNewlines(str) {
-    return str.replace(/\n/g, "<br/>");
-}
-
-
-/**
  * @function parseColor
  *
  * @description Parse and replace color markup sequences.
@@ -108,7 +92,6 @@ function parse(str) {
     res = replacePairOfStringWithHTML(res, "`", "tt");
 
     res = parseColor(res);
-    res = replaceNewlines(res);
 
     return res;
 }

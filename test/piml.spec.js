@@ -89,14 +89,6 @@ describe("PIML", () => {
         expect(PIML.parse("\\|\\|")).to.equal("&verbar;&verbar;");
     });
 
-    it("should replace newline with <br/> tag", () => {
-        expect(PIML.parse("FOO\nBAR")).to.equal("FOO<br/>BAR");
-    });
-
-    it("should replace all newlines with <br/> tags", () => {
-        expect(PIML.parse("FOO\nBAR\nBAZ\nQRR")).to.equal("FOO<br/>BAR<br/>BAZ<br/>QRR");
-    });
-
     it("should apply boldface at start of string", () => {
         expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
     });
@@ -206,7 +198,7 @@ describe("PIML", () => {
     });
 
     it("should apply markup across multiple lines", () => {
-        expect(PIML.parse("*FOO\nBAR\nBAZ*")).to.equal("<b>FOO<br/>BAR<br/>BAZ</b>")
+        expect(PIML.parse("*FOO\nBAR\nBAZ*")).to.equal("<b>FOO\nBAR\nBAZ</b>")
     });
 
     describe("color markup", () => {
