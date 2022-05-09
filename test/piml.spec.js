@@ -89,6 +89,14 @@ describe("PIML", () => {
         expect(PIML.parse("\\|\\|")).to.equal("&verbar;&verbar;");
     });
 
+    it("should escape '\\-'", () => {
+        expect(PIML.parse("\\-")).to.equal("&hyphen;");
+    });
+
+    it("should escape multiple '\\-'", () => {
+        expect(PIML.parse("\\-\\-")).to.equal("&hyphen;&hyphen;");
+    });
+
     it("should apply boldface at start of string", () => {
         expect(PIML.parse("*FOO*")).to.equal("<b>FOO</b>");
     });

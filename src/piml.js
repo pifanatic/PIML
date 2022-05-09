@@ -11,7 +11,8 @@ function escapePIMLEntities(str) {
               .replace(/\\`/g, "&grave;")
               .replace(/\\\[/g, "&lsqb;")
               .replace(/\\\]/g, "&rsqb;")
-              .replace(/\\\|/g, "&verbar;");
+              .replace(/\\\|/g, "&verbar;")
+              .replace(/\\\-/g, "&hyphen;");
 }
 
 /**
