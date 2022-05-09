@@ -80,6 +80,53 @@ function replacePairOfStringWithHTML(str, replacedString, tagName) {
     return str;
 }
 
+/**
+ * @function parseUnorderedLists
+ *
+ * @description Replace lines starting with a dash ("-") with the HTML for an
+ * unordered list (<ol><li>...</li></ol>)
+ *
+ * @param {string} str The string in which to replace the markdown
+ *
+ * @returns {string} A string that contains the HTML for unordered lists
+ */
+function parseUnorderedLists(str) {
+    let regex = new RegExp(`^\- (.*)$`),
+        hasListContext = false,
+        lines = str.split("\n");
+
+    lines = lines.map((line, index, array) => {
+        let parsedLine = "",
+            match = line.match(regex);
+
+        if (match) {
+            // start new list
+            if (!hasListContext) {
+                hasListContext = true;
+                parsedLine += "<ul>\n";
+            }
+
+            parsedLine += `<li>${match[1]}</li>`;
+
+            // add closing ul tag at end of input string
+            if (index === array.length - 1) {
+                parsedLine += "\n</ul>";
+            }
+        } else {
+            // end of an list
+            if (hasListContext) {
+                hasListContext = false;
+                parsedLine += "</ul>\n";
+            }
+            parsedLine += line;
+        }
+
+        return parsedLine;
+    });
+
+    return lines.join("\n");
+}
+
 function parse(str) {
     let res;
 
@@ -93,6 +140,8 @@ function parse(str) {
     res = replacePairOfStringWithHTML(res, "`", "tt");
 
     res = parseColor(res);
+
+    res = parseUnorderedLists(res);
 
     return res;
 }

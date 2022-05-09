@@ -271,4 +271,70 @@ describe("PIML", () => {
             });
         });
     });
+
+    describe("unordered lists", () => {
+        it("should handle an unordered list with one element", () => {
+            expect(
+                PIML.parse("- Foo")
+            ).to.equal(
+                "<ul>\n<li>Foo</li>\n</ul>"
+            );
+        });
+
+        it("should handle an unordered list with two elements", () => {
+            expect(
+                PIML.parse("- Foo\n- Bar")
+            ).to.equal(
+                "<ul>\n<li>Foo</li>\n<li>Bar</li>\n</ul>"
+            );
+        });
+
+        it("should handle an unordered list with some markup afterwards", () => {
+            expect(
+                PIML.parse("- Foo\n- Bar\nBazqrr")
+            ).to.equal(
+                "<ul>\n<li>Foo</li>\n<li>Bar</li>\n</ul>\nBazqrr"
+            );
+        });
+
+        it("should handle an unordered list with some markup before", () => {
+            expect(
+                PIML.parse("Hello!\n- Foo\n- Bar")
+            ).to.equal(
+                "Hello!\n<ul>\n<li>Foo</li>\n<li>Bar</li>\n</ul>"
+            );
+        });
+
+        it("should handle an unordered list with some markup around", () => {
+            expect(
+                PIML.parse("Hello!\n- Foo\n- Bar\nBye!")
+            ).to.equal(
+                "Hello!\n<ul>\n<li>Foo</li>\n<li>Bar</li>\n</ul>\nBye!"
+            );
+        });
+
+        it("should create two <ul> elements for two unordered lists separated by an empty line", () => {
+            expect(
+                PIML.parse("- List 1\n\n- List 2")
+            ).to.equal(
+                "<ul>\n<li>List 1</li>\n</ul>\n\n<ul>\n<li>List 2</li>\n</ul>"
+            );
+        });
+
+        it("should create two <ul> elements for two unordered lists separated by some markup", () => {
+            expect(
+                PIML.parse("- List 1\nMarkup\n- List 2")
+            ).to.equal(
+                "<ul>\n<li>List 1</li>\n</ul>\nMarkup\n<ul>\n<li>List 2</li>\n</ul>"
+            );
+        });
+
+        it("should apply PI Markdown within list items", () => {
+            expect(
+                PIML.parse("- *FOOBAR*\n- /BAZQRR/")
+            ).to.equal(
+                "<ul>\n<li><b>FOOBAR</b></li>\n<li><i>BAZQRR</i></li>\n</ul>"
+            );
+        });
+    });
 });
